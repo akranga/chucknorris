@@ -10,5 +10,5 @@ spec:
   - name: api
     port: 8080
   selector:
-    name: chuck
+    app: chuck
     version: 0.1.0
