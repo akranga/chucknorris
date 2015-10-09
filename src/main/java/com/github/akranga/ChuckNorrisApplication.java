@@ -83,7 +83,7 @@ public class ChuckNorrisApplication {
     @RequestMapping("/")
     @ResponseBody
     public String gimmeFact() {
-        return FACTS[random.nextInt(FACTS.length)];
+        return FACTS[random.nextInt(FACTS.length)] + "\n";
     }
 
     public static void main(String[] args) {
