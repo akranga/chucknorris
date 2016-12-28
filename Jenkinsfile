@@ -1,5 +1,7 @@
 node("java") {
   stage('Build') { 
+    sh "pwd" 
+    sh "ls -al" 
     sh "./gradlew jar" 
     archiveArtifacts artifacts: 'build/libs/chnorr-*.jar', fingerprint: true 
   }
