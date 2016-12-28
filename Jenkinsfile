@@ -1,8 +1,10 @@
+node {
+  git url: 'https://github.com/akranga/chucknorris.git', branch: 'master'
+}
+
 node("java") {
   stage('Build') { 
-    sh "pwd" 
-    sh "ls -al" 
-    sh "./gradlew jar" 
+    sh "cd chucknorris && ./gradlew jar" 
     archiveArtifacts artifacts: 'build/libs/chnorr-*.jar', fingerprint: true 
   }
 
