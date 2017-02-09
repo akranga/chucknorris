@@ -16,9 +16,7 @@ podTemplate(
     node('java') {
         stage('Build') {
             container('java') {
-                def workdir = pwd()
-                echo "Running build to ${workdir}"
-                dir('pwd()') {
+                dir(pwd()) {
                     sh './gradlew clean jar'
                 }
             }
