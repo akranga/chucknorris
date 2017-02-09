@@ -15,7 +15,11 @@ podTemplate(
     node('java') {
         stage('Build') {
             container('java') {
-                sh "${pwd()}/gradlew clean jar"
+                echo "pwd()/gradlew clean jar"
+
+                sh "sleep 300"
+                // sh "${pwd()}/gradlew clean jar"
+                // sh ""
             }
         }
     }
