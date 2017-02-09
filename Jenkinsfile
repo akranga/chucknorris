@@ -1,6 +1,5 @@
 #!/usr/bin/env groovy
 
-
 podTemplate(
         inheritFrom: 'agilestacks',
         label: 'java',
@@ -16,9 +15,7 @@ podTemplate(
     node('java') {
         stage('Build') {
             container('java') {
-                dir(pwd()) {
-                    sh './gradlew clean jar'
-                }
+                sh "${pwd()}/gradlew clean jar"
             }
         }
     }
