@@ -18,10 +18,8 @@ podTemplate(
             container('java') {
                 def workdir = pwd()
                 echo "Running build to ${workdir}"
-                ws(workdir) {
-                    sh """
-                ./gradlew clean jar
-                """
+                dir('pwd()') {
+                    sh './gradlew clean jar'
                 }
             }
         }
