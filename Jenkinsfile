@@ -45,7 +45,7 @@ podTemplate(
     node('chucknorris') {
         stage('Build') {
             container('java') {
-                sh './gradlew clean jar'
+                sh './gradlew clean assemble'
             }
         }
         stage('Publish') {
