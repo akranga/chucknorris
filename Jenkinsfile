@@ -68,8 +68,7 @@ podTemplate(
             container('docker') {
                 sh """
                 $dockerLogin
-                docker build -t $app .
-                docker tag $app $dockerRegistry:$tag
+                docker build -t $dockerRegistry:latest -t $dockerRegistry:$tag .
                 docker push $dockerRegistry
                 """
             }
