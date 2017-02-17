@@ -3,6 +3,7 @@
 def awsRegion
 def dockerRegistry
 def app = 'chucknorris'
+def tag
 
 node('master') {
     awsRegion = env.AWS_REGION
@@ -10,6 +11,7 @@ node('master') {
 
     stage('Checkout') {
         checkout scm
+        tag = sh(script: 'git rev-parse HEAD', returnStdout: true).take(6)
     }
 }
 
@@ -67,7 +69,7 @@ podTemplate(
                 sh """
                 $dockerLogin
                 docker build -t $app .
-                docker tag $app $dockerRegistry
+                docker tag $app $dockerRegistry:$tag
                 docker push $dockerRegistry
                 """
             }
@@ -94,10 +96,11 @@ spec:
       name: '$app'
       labels:
         app: '$app'
+        build: $tag
     spec:
       containers:
       - name: '$app'
-        image: '$dockerRegistry'
+        image: '$dockerRegistry:$tag'
         ports:
         - name: http
           containerPort: 8080
