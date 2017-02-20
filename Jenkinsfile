@@ -54,7 +54,8 @@ podTemplate(
     node('chucknorris') {
         stage('Build') {
             container('java') {
-                sh './gradlew clean assemble'
+                sh './gradlew clean build'
+                archiveArtifacts 'build/libs/chnorr-*.jar'
             }
         }
         stage('Publish') {
