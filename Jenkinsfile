@@ -91,6 +91,9 @@ metadata:
     app: '$app'
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: '$app'
   template:
     metadata:
       name: '$app'
