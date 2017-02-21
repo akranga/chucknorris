@@ -1,9 +1,11 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE")
+        classpath("ru.d10xa:gradle-allure-plugin:0.5.5")
     }
 }
 
@@ -11,6 +13,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'ru.d10xa.allure'
 
 jar {
     baseName = 'chnorr'
@@ -34,6 +37,11 @@ dependencies {
     // end::tests[]
 }
 
+allure {
+    aspectjweaver = true
+    junit = true
+}
+
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.14'
 }
