@@ -54,8 +54,15 @@ podTemplate(
     node('chucknorris') {
         stage('Build') {
             container('java') {
-                sh './gradlew clean build'
+                sh './gradlew clean build allureReport'
                 archiveArtifacts 'build/libs/chnorr-*.jar'
+                junit 'build/test-results/*.xml'
+                publishHTML([
+                        reportDir: 'build/allure-report',
+                        reportFiles: 'index.html',
+                        reportName: 'Allure Report',
+                        keepAll: true
+                ])
             }
         }
         stage('Publish') {
