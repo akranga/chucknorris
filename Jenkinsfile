@@ -107,6 +107,7 @@ podTemplate(
                 def deployment = render template, [
                         app: app,
                         namespace: namespace,
+                        replicas: 1,
                         host: "test.$host",
                         dockerRegistry: dockerRegistry,
                         tag: tag
@@ -122,6 +123,22 @@ podTemplate(
                     sleep 10
                 }
                 sh "curl -sSf http://test.$host | grep Chuck"
+            }
+        }
+        stage('Deploy: prod') {
+            container('kubectl') {
+                def namespace = "$app-prod"
+                def template = readFile 'deployment.yaml'
+                def deployment = render template, [
+                        app: app,
+                        namespace: namespace,
+                        replicas: 1,
+                        host: host,
+                        dockerRegistry: dockerRegistry,
+                        tag: tag
+                ]
+                writeFile file: "deployment.${namespace}.yaml", text: deployment
+                sh "kubectl apply -f ./deployment.${namespace}.yaml --namespace '$namespace'"
             }
         }
     }
