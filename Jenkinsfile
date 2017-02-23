@@ -118,9 +118,10 @@ podTemplate(
         stage('Test') {
             container('curl') {
                 retry(20) {
-                    sh "curl -sSf http://test.$host | grep Chuck"
+                    sh "curl -sSf http://test.$host > /dev/null"
                     sleep 10
                 }
+                sh "curl -sSf http://test.$host | grep Chuck"
             }
         }
     }
