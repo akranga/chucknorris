@@ -52,6 +52,12 @@ podTemplate(
                         image: 'agilestacks/kubectl',
                         ttyEnabled: true,
                         command: 'cat'
+                ),
+                containerTemplate(
+                        name: 'curl',
+                        image: 'appropriate/curl',
+                        ttyEnabled: true,
+                        command: 'cat'
                 )
         ],
         volumes: [
@@ -107,6 +113,14 @@ podTemplate(
                 ]
                 writeFile file: "deployment.${namespace}.yaml", text: deployment
                 sh "kubectl apply -f ./deployment.${namespace}.yaml --namespace '$namespace'"
+            }
+        }
+        stage('Test') {
+            container('curl') {
+                retry(20) {
+                    sh "curl -sSf http://test.$host | grep Chuck"
+                    sleep 10
+                }
             }
         }
     }

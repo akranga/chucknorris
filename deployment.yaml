@@ -20,7 +20,7 @@ spec:
       name: $app
       labels:
         app: $app
-        build: $tag
+        build: '$tag'
     spec:
       containers:
       - name: $app
