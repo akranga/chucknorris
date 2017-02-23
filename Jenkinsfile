@@ -11,13 +11,13 @@ def render(template, bindings = [:]) {
 def awsRegion
 def dockerRegistry
 def app = 'chucknorris'
-def domain
+def host
 def tag
 
 node('master') {
     awsRegion = env.AWS_REGION
     dockerRegistry = env.PRIVATE_REGISTRY
-    domain = env.ROOT_DOMAIN_NAME
+    host = "${app}.app.${env.ROOT_DOMAIN_NAME}"
 
     stage('Checkout') {
         checkout scm
@@ -94,19 +94,19 @@ podTemplate(
                 """
             }
         }
-        stage('Deploy') {
+        stage('Deploy: test') {
             container('kubectl') {
-                def namespace = "dev.$app"
+                def namespace = "$app-test"
                 def template = readFile 'deployment.yaml'
                 def deployment = render template, [
                         app: app,
                         namespace: namespace,
-                        domain: domain,
+                        host: "test.$host",
                         dockerRegistry: dockerRegistry,
                         tag: tag
                 ]
                 writeFile file: "deployment.${namespace}.yaml", text: deployment
-                sh "kubectl apply -f ./deployment.yaml --namespace '$namespace'"
+                sh "kubectl apply -f ./deployment.${namespace}.yaml --namespace '$namespace'"
             }
         }
     }
