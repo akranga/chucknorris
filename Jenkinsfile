@@ -119,10 +119,10 @@ podTemplate(
         stage('Test') {
             container('curl') {
                 retry(20) {
-                    sh "curl -sSf http://test.$host > /dev/null"
+                    sh "curl -sSf http://test.$host > response"
                     sleep 10
                 }
-                sh "curl -sSf http://test.$host | grep Chuck"
+                sh "cat response | grep Chuck"
             }
         }
         stage('Deploy: prod') {
