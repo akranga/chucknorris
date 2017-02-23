@@ -1,5 +1,13 @@
 #!/usr/bin/env groovy
 
+@NonCPS
+def render(template, bindings = [:]) {
+    return new groovy.text.SimpleTemplateEngine()
+            .createTemplate(template)
+            .make(bindings)
+            .toString()
+}
+
 def awsRegion
 def dockerRegistry
 def app = 'chucknorris'
@@ -54,15 +62,18 @@ podTemplate(
     node('chucknorris') {
         stage('Build') {
             container('java') {
-                sh './gradlew clean build allureReport'
-                archiveArtifacts 'build/libs/chnorr-*.jar'
-                junit 'build/test-results/*.xml'
-                publishHTML([
-                        reportDir: 'build/allure-report',
-                        reportFiles: 'index.html',
-                        reportName: 'Allure Report',
-                        keepAll: true
-                ])
+                try {
+                    sh './gradlew clean build allureReport'
+                } finally {
+                    archiveArtifacts 'build/libs/chnorr-*.jar'
+                    junit 'build/test-results/*.xml'
+                    publishHTML([
+                            reportDir: 'build/allure-report',
+                            reportFiles: 'index.html',
+                            reportName: 'Allure Report',
+                            keepAll: true
+                    ])
+                }
             }
         }
         stage('Publish') {
@@ -83,61 +94,13 @@ podTemplate(
         }
         stage('Deploy') {
             container('kubectl') {
-                writeFile file: './deployment.yaml', text: """
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: '$app'
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: '$app'
-  namespace: '$app'
-  labels:
-    app: '$app'
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: '$app'
-  template:
-    metadata:
-      name: '$app'
-      labels:
-        app: '$app'
-        build: $tag
-    spec:
-      containers:
-      - name: '$app'
-        image: '$dockerRegistry:$tag'
-        ports:
-        - name: http
-          containerPort: 8080
-        livenessProbe:
-          httpGet:
-            port: http
-          initialDelaySeconds: 1
-        readinessProbe:
-          httpGet:
-            port: http
-          initialDelaySeconds: 1
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: '$app'
-  namespace: '$app'
-  labels:
-    app: '$app'
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: http
-  selector:
-    app: '$app'
-                """
+                def template = readFile 'deployment.yaml'
+                def deployment = render template, [
+                        app: app,
+                        dockerRegistry: dockerRegistry,
+                        tag: tag
+                ]
+                writeFile file: "deployment.${app}.yaml", text: deployment
                 sh "kubectl apply -f ./deployment.yaml --namespace '$app'"
             }
         }
