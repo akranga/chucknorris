@@ -118,11 +118,13 @@ podTemplate(
         }
         stage('Test') {
             container('curl') {
-                retry(20) {
-                    sh "curl -sSf http://test.$host > response"
+                sh """
+                for i in `seq 20`; do
+                    curl -sSf http://test.$host > response && break
                     sleep 10
-                }
-                sh "cat response | grep Chuck"
+                done
+                cat response | grep Chuck
+                """
             }
         }
         stage('Deploy: prod') {
