@@ -132,7 +132,7 @@ podTemplate(
                 def deployment = render template, [
                         app: app,
                         namespace: namespace,
-                        replicas: 3,
+                        replicas: 1,
                         host: host,
                         dockerRegistry: dockerRegistry,
                         tag: tag
