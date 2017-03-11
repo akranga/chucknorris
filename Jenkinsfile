@@ -110,6 +110,7 @@ podTemplate(
                         replicas: 1,
                         host: "test.$host",
                         dockerRegistry: dockerRegistry,
+                        version: tag,
                         tag: tag
                 ]
                 writeFile file: "deployment.${namespace}.yaml", text: deployment
@@ -137,6 +138,7 @@ podTemplate(
                         replicas: 1,
                         host: host,
                         dockerRegistry: dockerRegistry,
+                        version: tag,
                         tag: tag
                 ]
                 writeFile file: "deployment.${namespace}.yaml", text: deployment
