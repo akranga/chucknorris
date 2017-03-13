@@ -8,6 +8,20 @@ def render(template, bindings = [:]) {
             .toString()
 }
 
+@NonCPS
+def verifyDeployment(app, namespace) {
+    return """
+    for i in `seq 20`; do
+        kubectl rollout status deployment '$app' \\
+            -n '$namespace' \\
+            --watch=false \\
+            | grep 'rolled out' > status && break
+        sleep 1
+    done
+    cat status | grep 'rolled out'
+    """
+}
+
 def awsRegion
 def dockerRegistry
 def app = 'chucknorris'
@@ -118,8 +132,13 @@ podTemplate(
                         tag: tag
                 ]
                 writeFile file: "deployment.${namespace}.yaml", text: deployment
-                sh "kubectl delete namespace '${namespace}' || true"
-                sh "kubectl create -f ./deployment.${namespace}.yaml --namespace '$namespace'"
+                sh "kubectl apply -f ./deployment.${namespace}.yaml -n '$namespace'"
+                try {
+                    sh verifyDeployment(app, namespace)
+                } catch (err) {
+                    sh "kubectl rollout undo deployment '$app' -n '$namespace'"
+                    throw err
+                }
             }
         }
         stage('Test') {
@@ -148,6 +167,12 @@ podTemplate(
                 ]
                 writeFile file: "deployment.${namespace}.yaml", text: deployment
                 sh "kubectl apply -f ./deployment.${namespace}.yaml --namespace '$namespace'"
+                try {
+                    sh verifyDeployment(app, namespace)
+                } catch (err) {
+                    sh "kubectl rollout undo deployment '$app' -n '$namespace'"
+                    throw err
+                }
             }
         }
     }
