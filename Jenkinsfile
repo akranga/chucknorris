@@ -13,6 +13,8 @@ def dockerRegistry
 def app = 'chucknorris'
 def host
 def tag
+def version
+def replicas
 
 node('master') {
     awsRegion = env.AWS_REGION
@@ -22,6 +24,8 @@ node('master') {
     stage('Checkout') {
         checkout scm
         tag = sh(script: 'git rev-parse HEAD', returnStdout: true).take(6)
+        version = env.version ?: tag
+        replicas = env.replicas ?: 1
     }
 }
 
@@ -110,7 +114,7 @@ podTemplate(
                         replicas: 1,
                         host: "test.$host",
                         dockerRegistry: dockerRegistry,
-                        version: tag,
+                        version: version,
                         tag: tag
                 ]
                 writeFile file: "deployment.${namespace}.yaml", text: deployment
@@ -127,6 +131,10 @@ podTemplate(
                 cat response | grep Chuck
                 """
             }
+            container('kubectl') {
+                def namespace = "$app-test"
+                sh "kubectl delete namespace '${namespace}'"
+            }
         }
         stage('Deploy: prod') {
             container('kubectl') {
@@ -135,10 +143,10 @@ podTemplate(
                 def deployment = render template, [
                         app: app,
                         namespace: namespace,
-                        replicas: 1,
+                        replicas: replicas,
                         host: host,
                         dockerRegistry: dockerRegistry,
-                        version: tag,
+                        version: version,
                         tag: tag
                 ]
                 writeFile file: "deployment.${namespace}.yaml", text: deployment
