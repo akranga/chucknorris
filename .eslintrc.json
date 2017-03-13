@@ -1,0 +1,25 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb-base"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "class-methods-use-this": "off",
+    "comma-dangle": ["error", "never"],
+    "curly": ["error", "all"],
+    "eqeqeq": ["error", "smart"],
+    "indent": ["error", 4],
+    "func-names": "off",
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+    "no-console": "off",
+    "object-curly-spacing": ["error", "never"],
+    "space-before-function-paren": ["error", "never"]
+  }
+}

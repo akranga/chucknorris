@@ -1,9 +1,10 @@
-FROM java:jre
+FROM node:7-alpine
 
-ENV APP_VERSION 0.1.0
+ENV NODE_ENV $NODE_ENV
 
-COPY build/libs/chnorr-$APP_VERSION.jar /app.jar
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+
+CMD [ "npm", "start" ]
 
 EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "/app.jar"]

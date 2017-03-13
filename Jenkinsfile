@@ -48,8 +48,8 @@ podTemplate(
         label: 'chucknorris',
         containers: [
                 containerTemplate(
-                        name: 'java',
-                        image: 'openjdk:8',
+                        name: 'node',
+                        image: 'node:7-alpine',
                         ttyEnabled: true,
                         command: 'cat'
                 ),
@@ -86,20 +86,9 @@ podTemplate(
         ]
 ) {
     node('chucknorris') {
-        stage('Build') {
-            container('java') {
-                try {
-                    sh './gradlew clean build allureReport'
-                } finally {
-                    archiveArtifacts 'build/libs/chnorr-*.jar'
-                    junit 'build/test-results/*.xml'
-                    publishHTML([
-                            reportDir: 'build/allure-report',
-                            reportFiles: 'index.html',
-                            reportName: 'Allure Report',
-                            keepAll: true
-                    ])
-                }
+        stage('Validate') {
+            container('node') {
+                sh 'npm test'
             }
         }
         stage('Publish') {
