@@ -118,7 +118,8 @@ podTemplate(
                         tag: tag
                 ]
                 writeFile file: "deployment.${namespace}.yaml", text: deployment
-                sh "kubectl apply -f ./deployment.${namespace}.yaml --namespace '$namespace'"
+                sh "kubectl delete namespace '${namespace}' || true"
+                sh "kubectl create -f ./deployment.${namespace}.yaml --namespace '$namespace'"
             }
         }
         stage('Test') {
@@ -130,10 +131,6 @@ podTemplate(
                 done
                 cat response | grep Chuck
                 """
-            }
-            container('kubectl') {
-                def namespace = "$app-test"
-                sh "kubectl delete namespace '${namespace}'"
             }
         }
         stage('Deploy: prod') {
