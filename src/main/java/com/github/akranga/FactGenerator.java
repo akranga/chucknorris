@@ -10,7 +10,7 @@ public class FactGenerator {
     private static final String[] FACTS = {
             "All arrays Chuck Norris declares are of infinite size, because Chuck Norris knows no bounds.",
             "Chuck Norris doesn't have disk latency because the hard drive knows to hurry the hell up.",
-            "All browsers support the hex definitions #chuck and #norris for the colors black and blue.",
+            "All browsers support the hex definitions #Chuck and #Norris for the colors black and blue.",
             "Chuck Norris can't test for equality because he has no equal.",
             "Chuck Norris doesn't need garbage collection because he doesn't call .Dispose(), he calls .DropKick().",
             "Chuck Norris's first program was kill -9.",
