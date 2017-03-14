@@ -88,7 +88,10 @@ podTemplate(
     node('chucknorris') {
         stage('Validate') {
             container('node') {
-                sh 'npm run lint'
+                sh """
+                npm install
+                npm run lint
+                """
                 try {
                     sh """
                     npm test
