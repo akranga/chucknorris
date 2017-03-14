@@ -1,3 +1,4 @@
+allure-results/
 allure-report/
 node_modules/
 npm-debug.log

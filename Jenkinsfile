@@ -88,7 +88,20 @@ podTemplate(
     node('chucknorris') {
         stage('Validate') {
             container('node') {
-                sh 'npm test'
+                sh 'npm run lint'
+                try {
+                    sh """
+                    npm test
+                    npm run report
+                    """
+                } finally {
+                    publishHTML([
+                        reportDir: 'allure-report',
+                        reportFiles: 'index.html',
+                        reportName: 'Allure Report',
+                        keepAll: true
+                    ])
+                }
             }
         }
         stage('Publish') {
