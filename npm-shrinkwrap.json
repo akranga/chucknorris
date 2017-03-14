@@ -39,12 +39,6 @@
       "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-1.5.1.tgz",
       "dev": true
     },
-    "allure-commandline": {
-      "version": "1.5.0",
-      "from": "allure-commandline@latest",
-      "resolved": "https://registry.npmjs.org/allure-commandline/-/allure-commandline-1.5.0.tgz",
-      "dev": true
-    },
     "allure-js-commons": {
       "version": "1.2.1",
       "from": "allure-js-commons@>=1.2.0 <1.3.0",
@@ -186,13 +180,13 @@
     },
     "chai": {
       "version": "3.5.0",
-      "from": "chai@latest",
+      "from": "chai@>=3.5.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/chai/-/chai-3.5.0.tgz",
       "dev": true
     },
     "chai-http": {
       "version": "3.0.0",
-      "from": "chai-http@latest",
+      "from": "chai-http@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/chai-http/-/chai-http-3.0.0.tgz",
       "dev": true
     },
@@ -313,10 +307,9 @@
       "dev": true
     },
     "debug": {
-      "version": "2.6.2",
-      "from": "debug@>=2.1.1 <3.0.0",
-      "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.2.tgz",
-      "dev": true
+      "version": "2.6.1",
+      "from": "debug@2.6.1",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.1.tgz"
     },
     "decamelize": {
       "version": "1.2.0",
@@ -395,9 +388,9 @@
       "dev": true
     },
     "es5-ext": {
-      "version": "0.10.12",
+      "version": "0.10.13",
       "from": "es5-ext@>=0.10.11 <0.11.0",
-      "resolved": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.12.tgz",
+      "resolved": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.13.tgz",
       "dev": true
     },
     "es6-iterator": {
@@ -449,13 +442,13 @@
     },
     "eslint": {
       "version": "3.17.1",
-      "from": "eslint@latest",
+      "from": "eslint@>=3.17.1 <4.0.0",
       "resolved": "https://registry.npmjs.org/eslint/-/eslint-3.17.1.tgz",
       "dev": true
     },
     "eslint-config-airbnb-base": {
       "version": "11.1.1",
-      "from": "eslint-config-airbnb-base@latest",
+      "from": "eslint-config-airbnb-base@>=11.1.1 <12.0.0",
       "resolved": "https://registry.npmjs.org/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.1.1.tgz",
       "dev": true
     },
@@ -487,7 +480,7 @@
     },
     "eslint-plugin-import": {
       "version": "2.2.0",
-      "from": "eslint-plugin-import@latest",
+      "from": "eslint-plugin-import@>=2.2.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.2.0.tgz",
       "dev": true
     },
@@ -548,15 +541,8 @@
     },
     "express": {
       "version": "4.15.2",
-      "from": "express@latest",
-      "resolved": "https://registry.npmjs.org/express/-/express-4.15.2.tgz",
-      "dependencies": {
-        "debug": {
-          "version": "2.6.1",
-          "from": "debug@2.6.1",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.1.tgz"
-        }
-      }
+      "from": "express@>=4.15.2 <5.0.0",
+      "resolved": "https://registry.npmjs.org/express/-/express-4.15.2.tgz"
     },
     "extend": {
       "version": "3.0.0",
@@ -591,14 +577,7 @@
     "finalhandler": {
       "version": "1.0.0",
       "from": "finalhandler@>=1.0.0 <1.1.0",
-      "resolved": "https://registry.npmjs.org/finalhandler/-/finalhandler-1.0.0.tgz",
-      "dependencies": {
-        "debug": {
-          "version": "2.6.1",
-          "from": "debug@2.6.1",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.1.tgz"
-        }
-      }
+      "resolved": "https://registry.npmjs.org/finalhandler/-/finalhandler-1.0.0.tgz"
     },
     "find-up": {
       "version": "1.1.2",
@@ -761,7 +740,7 @@
     },
     "inherits": {
       "version": "2.0.3",
-      "from": "inherits@>=2.0.3 <3.0.0",
+      "from": "inherits@2.0.3",
       "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz"
     },
     "inquirer": {
@@ -967,7 +946,7 @@
     },
     "lodash": {
       "version": "4.17.4",
-      "from": "lodash@latest",
+      "from": "lodash@>=4.17.4 <5.0.0",
       "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
     },
     "lodash._baseassign": {
@@ -1112,7 +1091,7 @@
     },
     "mocha": {
       "version": "3.2.0",
-      "from": "mocha@latest",
+      "from": "mocha@>=3.2.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/mocha/-/mocha-3.2.0.tgz",
       "dev": true,
       "dependencies": {
@@ -1144,7 +1123,7 @@
     },
     "mocha-allure-reporter": {
       "version": "1.2.4",
-      "from": "mocha-allure-reporter@latest",
+      "from": "mocha-allure-reporter@>=1.2.4 <2.0.0",
       "resolved": "https://registry.npmjs.org/mocha-allure-reporter/-/mocha-allure-reporter-1.2.4.tgz",
       "dev": true,
       "dependencies": {
@@ -1200,7 +1179,7 @@
     },
     "mocha-multi": {
       "version": "0.10.0",
-      "from": "mocha-multi@latest",
+      "from": "mocha-multi@>=0.10.0 <0.11.0",
       "resolved": "https://registry.npmjs.org/mocha-multi/-/mocha-multi-0.10.0.tgz",
       "dev": true,
       "dependencies": {
@@ -1415,9 +1394,9 @@
       "dev": true
     },
     "readable-stream": {
-      "version": "2.2.3",
-      "from": "readable-stream@>=2.2.2 <3.0.0",
-      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.3.tgz",
+      "version": "2.2.5",
+      "from": "readable-stream@>=2.0.5 <3.0.0",
+      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.5.tgz",
       "dev": true
     },
     "readline2": {
@@ -1495,14 +1474,7 @@
     "send": {
       "version": "0.15.1",
       "from": "send@0.15.1",
-      "resolved": "https://registry.npmjs.org/send/-/send-0.15.1.tgz",
-      "dependencies": {
-        "debug": {
-          "version": "2.6.1",
-          "from": "debug@2.6.1",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.1.tgz"
-        }
-      }
+      "resolved": "https://registry.npmjs.org/send/-/send-0.15.1.tgz"
     },
     "serve-static": {
       "version": "1.12.1",

@@ -54,6 +54,12 @@ podTemplate(
                         command: 'cat'
                 ),
                 containerTemplate(
+                    name: 'allure',
+                    image: 'automationwizards/allure:1.4.23',
+                    ttyEnabled: true,
+                    command: 'cat'
+                ),
+                containerTemplate(
                         name: 'aws',
                         image: 'agilestacks/aws',
                         ttyEnabled: true,
@@ -93,17 +99,9 @@ podTemplate(
                 npm run lint
                 """
                 try {
-                    sh """
-                    npm test
-                    npm run report
-                    """
+                    sh 'npm test'
                 } finally {
-                    publishHTML([
-                        reportDir: 'allure-report',
-                        reportFiles: 'index.html',
-                        reportName: 'Allure Report',
-                        keepAll: true
-                    ])
+                    junit 'build/xunit.xml'
                 }
             }
         }

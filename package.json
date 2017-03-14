@@ -9,7 +9,6 @@
     "lodash": "^4.17.4"
   },
   "devDependencies": {
-    "allure-commandline": "^1.5.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "eslint": "^3.17.1",
@@ -25,7 +24,6 @@
   "scripts": {
     "start": "node src/server.js",
     "lint": "eslint --ext .js src/",
-    "test": "mocha -R mocha-multi --reporter-options spec=-,mocha-allure-reporter=-",
-    "report": "allure generate allure-results -o allure-report"
+    "test": "mocha -R mocha-multi --reporter-options spec=-,xunit=build/xunit.xml,mocha-allure-reporter=-"
   }
 }
